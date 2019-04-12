@@ -1,3 +1,4 @@
+import { Stock } from './../models/stock.model';
 import { Request, Response } from 'express';
 const storage = require('node-persist');
 const uuidv1 = require('uuid/v1');
@@ -18,10 +19,11 @@ export class Database {
         return storage.getItem(id);
     }
 
-    public async setItem(obj: object) {
+    public async setItem(obj: any) {
         const id = uuidv1();
+        obj.createdDate = new Date().toISOString();
         await storage.setItem(id, obj);
-        return id;
+        return Object.assign({}, obj, {id: id});
     }
 }
 

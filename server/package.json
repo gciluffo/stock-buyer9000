@@ -16,6 +16,7 @@
     "mongoose": "^5.4.7",
     "node-persist": "^3.0.4",
     "nodemon": "^1.18.9",
+    "request": "^2.88.0",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
