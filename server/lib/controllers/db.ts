@@ -15,20 +15,38 @@ export class Database {
         });
     }
 
-    public async getItemById(id: string) {
+    public async getItemById(id: string): Promise<any> {
         const item = await storage.getItem(id);
         return Object.assign({}, item, {id: id});
     }
 
-    public async removeItemById(id: string) {
+    public async removeItemById(id: string): Promise<any> {
         return await storage.removeItem(id);
     }
 
-    public async setItem(obj: any) {
+    public async setItem(obj: any): Promise<any> {
         const id = uuidv1();
         obj.createdDate = new Date().toISOString();
         await storage.setItem(id, obj);
         return Object.assign({}, obj, {id: id});
+    }
+
+    public async getAllItems(): Promise<Stock[]> {
+        const res: Stock[] = [];
+        await storage.forEach(async (datum) => {
+            res.push(Object.assign({}, datum.value, {id: datum.key}));
+        });
+        return res;
+    }
+
+    public async getAllPurchasesByTicker(ticker: string): Promise<Stock[]> {
+        const matches: Stock[] = [];
+        await storage.forEach(async (datum) => {
+            if (datum.value.ticker.toLowerCase() === ticker.toLowerCase()) {
+                matches.push(Object.assign({}, datum.value, {id: datum.key}));
+            }
+        });
+        return matches;
     }
 }
 

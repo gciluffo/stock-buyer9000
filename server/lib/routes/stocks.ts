@@ -13,7 +13,7 @@ export class StockRoutes {
         });
 
         app.route('/stocks/:ticker/price')
-        .get( async (req: Request, res: Response, next: NextFunction) => {
+        .get(async (req: Request, res: Response, next: NextFunction) => {
             try {
                 const response = await getStockPriceByTicker(req.params.ticker);
                 res.status(200).send({price: response});
@@ -23,9 +23,29 @@ export class StockRoutes {
         });
 
         app.route('/stocks/purchases/:id')
-        .get( async (req: Request, res: Response, next: NextFunction) => {
+        .get(async (req: Request, res: Response, next: NextFunction) => {
             try {
                 const response = await req.app.locals.database.getItemById(req.params.id);
+                res.status(200).send(response);
+            } catch (e) {
+                return next(e);
+            }
+        });
+
+        app.route('/stocks/purchases/ticker/:id')
+        .get(async (req: Request, res: Response, next: NextFunction) => {
+            try {
+                const response = await req.app.locals.database.getAllPurchasesByTicker(req.params.id);
+                res.status(200).send(response);
+            } catch (e) {
+                return next(e);
+            }
+        });
+
+        app.route('/stocks/purchases')
+        .get(async (req: Request, res: Response, next: NextFunction) => {
+            try {
+                const response = await req.app.locals.database.getAllItems(req.params.id);
                 res.status(200).send(response);
             } catch (e) {
                 return next(e);
