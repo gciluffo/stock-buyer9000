@@ -1,0 +1,14 @@
+{{model | json}}
+<input type="text" class="form-control" id="ticker"
+       required
+       [(ngModel)]="model.ticker" name="ticker">
+
+<p *ngIf="model.price">{{model.price}}</p>
+
+<button (click)="getStockPrice()">Get Price</button>
+<button (click)="createPurchase()" [disabled]="!model.price">Purchase</button>
+
+<p *ngIf="error" class="error">{{error}}</p>
+<p *ngIf="status" class="success">{{status}}</p>
+
+

@@ -55,6 +55,7 @@ export class StockRoutes {
         app.route('/stocks/purchases')
         .post(async (req: Request, res: Response, next: NextFunction) => {
             try {
+                // Crude obj validation, where a lib like Joi would be used.
                 if (!req.body.ticker || !req.body.amount) {
                     return res.status(400).send({
                         message: `ticker and amount required`

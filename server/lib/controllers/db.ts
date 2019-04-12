@@ -49,4 +49,3 @@ export class Database {
         return matches;
     }
 }
-
