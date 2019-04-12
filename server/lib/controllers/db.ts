@@ -16,7 +16,11 @@ export class Database {
     }
 
     public async getItemById(id: string) {
-        return storage.getItem(id);
+        return await storage.getItem(id);
+    }
+
+    public async removeItemById(id: string) {
+        return await storage.removeItem(id);
     }
 
     public async setItem(obj: any) {
