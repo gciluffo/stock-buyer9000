@@ -20,10 +20,11 @@ export class PurchaseStockComponent implements OnInit {
   }
 
   getStockPrice() {
+    this.resetMessages();
     if (this.model.ticker) {
       this.stockSvc.getPriceByTicker(this.model.ticker)
-        .subscribe((res: string) => {
-          this.model.price = res;
+        .subscribe((res: any) => {
+          this.model.price = res.price;
         }, (error) => {
           console.error(error);
           this.error = `Error getting stock price ${error.name}`;
@@ -35,12 +36,25 @@ export class PurchaseStockComponent implements OnInit {
     if (this.model.ticker) {
       this.stockSvc.createPurchase(this.model.ticker, this.model.price)
         .subscribe((stock: Stock) => {
-          this.status = `Successfully purchased stock with id of ${stock.id}`
+          this.status = `Successfully purchased ${this.model.ticker} with id of ${stock.id}`;
         }, (error) => {
           console.error(error);
           this.error = `Error creating stock purchase ${error.message}`;
+          this.updatePrice();
         });
     }
+  }
+
+  updatePrice() {
+    if (this.model.price) {
+      this.model.ticker = '';
+      this.model.price = '';
+    }
+  }
+
+  resetMessages() {
+    this.status = '';
+    this.error = '';
   }
 
 }

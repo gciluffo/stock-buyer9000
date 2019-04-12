@@ -2,6 +2,7 @@ import * as express from "express";
 import * as bodyParser from "body-parser";
 import { StockRoutes } from "./routes/stocks";
 import { Database } from './controllers/db';
+const cors = require('cors')
 
 class App {
 
@@ -17,6 +18,7 @@ class App {
     private config(): void{
         this.app.use(bodyParser.json());
         this.app.use(bodyParser.urlencoded({ extended: false }));
+        this.app.use(cors());
     }
 }
 

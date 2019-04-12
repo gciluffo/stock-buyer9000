@@ -1,9 +1,10 @@
-{{model | json}}
+<h2>Enter stock ticker symbol</h2>
+
 <input type="text" class="form-control" id="ticker"
        required
-       [(ngModel)]="model.ticker" name="ticker">
+       [(ngModel)]="model.ticker" name="ticker" (ngModelChange)="updatePrice()">
 
-<p *ngIf="model.price">{{model.price}}</p>
+<p *ngIf="model.price">Value of {{model.ticker}} {{model.price}}</p>
 
 <button (click)="getStockPrice()">Get Price</button>
 <button (click)="createPurchase()" [disabled]="!model.price">Purchase</button>

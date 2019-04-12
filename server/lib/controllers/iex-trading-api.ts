@@ -12,7 +12,7 @@ async function makeRequest(endpoint: string): Promise<any> {
             if (error) {
                 reject(error);
             } else {
-                resolve(body);
+                resolve(response);
             }
         }); 
     });

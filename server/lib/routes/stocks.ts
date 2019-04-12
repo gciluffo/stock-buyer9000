@@ -16,7 +16,7 @@ export class StockRoutes {
         .get(async (req: Request, res: Response, next: NextFunction) => {
             try {
                 const response = await getStockPriceByTicker(req.params.ticker);
-                res.status(200).send({price: response});
+                res.status(response.statusCode).send({price: response.body});
             } catch (e) {
                 return next(e);
             }
