@@ -22,6 +22,16 @@ export class StockRoutes {
             }
         });
 
+        app.route('/stocks/purchases/:id')
+        .get( async (req: Request, res: Response, next: NextFunction) => {
+            try {
+                const response = await req.app.locals.database.getItemById(req.params.id);
+                res.status(200).send(response);
+            } catch (e) {
+                return next(e);
+            }
+        });
+
         app.route('/stocks/purchases')
         .post(async (req: Request, res: Response, next: NextFunction) => {
             try {

@@ -16,7 +16,8 @@ export class Database {
     }
 
     public async getItemById(id: string) {
-        return await storage.getItem(id);
+        const item = await storage.getItem(id);
+        return Object.assign({}, item, {id: id});
     }
 
     public async removeItemById(id: string) {
